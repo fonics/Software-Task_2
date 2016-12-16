@@ -111,11 +111,14 @@ public class U_test {
 		verify(psmt, times(4)).setString(anyInt(), Stringcaptor.capture());	
 		Assert.assertTrue(Stringcaptor.getAllValues().get(0).equals("toy"));
 		Assert.assertTrue(Stringcaptor.getAllValues().get(1).equals("lego"));
+		Assert.assertTrue(Stringcaptor.getAllValues().get(2).equals("2015-12-2"));
+		Assert.assertTrue(Stringcaptor.getAllValues().get(3).equals("2016-12-1"));
 	}
 
     @Test
      public void integration_test() throws Exception ,DAOException{
 	    DAOImpl newtest = new DAOImpl();
+	    
         Product testprod = new Product(123);
         testprod.setType("orange juice");
         testprod.setManufacturer("lamar");
@@ -125,14 +128,10 @@ public class U_test {
         Assert.assertEquals(123,testprod.getId());
         
         newtest.getProduct(123);
-        Assert.assertEquals(123,testprod.getId());
-        Assert.assertEquals("orange juice",testprod.getType());
-        Assert.assertEquals("lamar",testprod.getManufacturer());
-        Assert.assertEquals("2015-2-12",testprod.getProductionDate());
-        Assert.assertEquals("2015-8-11",testprod.getExpiryDate());
-        
-        newtest.deleteProduct(123);
-        Assert.assertTrue(newtest.getProduct(1) == null);
+        Assert.assertNotNull(testprod);
+   
+        newtest.deleteProduct(123); 
+        Assert.assertTrue(newtest.getProduct(123) == null);
 }
 
 	
